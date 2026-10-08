@@ -1,0 +1,50 @@
+main {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 0 16px;
+  font-family: system-ui, sans-serif;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.count {
+  font-size: 48px;
+  text-align: center;
+  margin: 8px 0;
+}
+
+button {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+input {
+  flex: 1;
+  padding: 6px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.empty {
+  color: #888;
+}

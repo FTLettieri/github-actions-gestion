@@ -1,0 +1,34 @@
+<main>
+  <h1 data-testid="title">Demo CI</h1>
+
+  <section class="card">
+    <h2>Contador</h2>
+    <p class="count" data-testid="count">{{ count() }}</p>
+    <div class="row">
+      <button data-testid="decrement" (click)="decrement()">-</button>
+      <button data-testid="reset" (click)="reset()">Reset</button>
+      <button data-testid="increment" (click)="increment()">+</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Tareas ({{ todoCount() }})</h2>
+    <form class="row" (submit)="$event.preventDefault(); addTodo(todoInput)">
+      <input #todoInput data-testid="todo-input" placeholder="Nueva tarea" />
+      <button type="submit" data-testid="todo-add">Agregar</button>
+    </form>
+
+    @if (todos().length === 0) {
+      <p class="empty" data-testid="todo-empty">No hay tareas</p>
+    } @else {
+      <ul data-testid="todo-list">
+        @for (todo of todos(); track $index) {
+          <li>
+            <span>{{ todo }}</span>
+            <button (click)="removeTodo($index)" [attr.aria-label]="'Borrar ' + todo">x</button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</main>
