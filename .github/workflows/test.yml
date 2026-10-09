@@ -1,0 +1,34 @@
+name: Test
+
+# Corre cuando termina el workflow "Build" (solo si salió bien).
+on:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Testear el mismo commit que compiló Build, no el último de main
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Instalar navegadores de Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Correr tests e2e
+        run: npm run e2e
+      - name: Subir reporte de Playwright
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

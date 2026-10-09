@@ -1,0 +1,19 @@
+name: Format
+
+# Reutilizable: lo llama build.yml. También se puede correr a mano.
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Chequear formato con Prettier
+        run: npm run format:check
