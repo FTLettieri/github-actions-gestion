@@ -20,7 +20,7 @@ export class App {
   }
 
   reset() {
-    this.count.set(0);
+    this.count.set(1);
   }
 
   addTodo(input: HTMLInputElement) {
